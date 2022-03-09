@@ -1,6 +1,9 @@
 # AngularMaterial
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
+Install Angular Material: 
+    ng add @angular/material
+    npm i @angular/flex-layout
 
 ## Development server
 
