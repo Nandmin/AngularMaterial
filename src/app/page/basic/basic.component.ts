@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/model/user';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-basic',
@@ -7,7 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BasicComponent implements OnInit {
 
-  constructor() { }
+  dataSource$: Observable<User | User[] | any> = this.userService.get();
+  displayedColumns: string[] = [
+    'id',
+    'first_name',
+    'last_name',
+    'gender',
+    'email',
+    'address'
+  ];
+
+  constructor(
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
   }
