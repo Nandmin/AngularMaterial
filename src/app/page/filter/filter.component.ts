@@ -31,7 +31,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     constructor(private userService: UserService
       )  {}
 
-    applyFilert(event: Event): void {
+    applyFilter(event: Event): void {
       // kiolvasom az input elem értékét
       const filterValue = (event.target as HTMLInputElement).value;
       // minden módosuláskor módosul a filter értéke
@@ -50,6 +50,7 @@ export class FilterComponent implements OnInit, OnDestroy {
         this.dataSource.filterPredicate = (data: User, filter: string) => {
           const key = this.currentFilterKey || '';
           const soruce = key ? String(data=key) : JSON.stringify(data);
+          return soruce.toLowerCase().includes(filter);
         }
     }
     //leiratkozáshoz

@@ -1,4 +1,19 @@
+<mat-form-field style="margin-right: 1rem;">
+    <mat-label>Field</mat-label>
+    <mat-select [(ngModel)]="currentFilterKey">
+        <mat-option [value]="''">All field</mat-option>
+        <mat-option *ngFor="let col of displayedColumns" [value]="col">
+            {{ col}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field style="margin-right: 1 rem;">
+    <mat-label>Filter</mat-label>
+    <input matInput type="text" (keyup)="applyFilter($event)">
+</mat-form-field>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
     <!-- columns -->
     <ng-container *ngFor="let col of displayedColumns" [matColumnDef]="col">
         <th mat-header-cell *matHeaderCellDef>
