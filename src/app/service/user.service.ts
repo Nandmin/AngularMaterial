@@ -11,10 +11,10 @@ import { User } from '../model/user';
 export class UserService {
 
   apiUrl = `http://localhost:3000/users`;
-  watcher$: BehaviorSubject<User[] | User | any> = new BehaviorSubject([]);
+  watcher$: BehaviorSubject<User[] | any> = new BehaviorSubject([]);
 
   constructor(
-    private http: HttpClient,
+    private http: HttpClient
   ) { }
 
   refresh(): void {

@@ -28,7 +28,8 @@ export class FilterComponent implements OnInit, OnDestroy {
 
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | any;
 
-    constructor(private userService: UserService
+    constructor(
+      private userService: UserService
       )  {}
 
     applyFilter(event: Event): void {
