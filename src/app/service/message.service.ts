@@ -21,4 +21,8 @@ export class MessageService {
 
       return dialogRef.afterClosed();
   }
+
+  openSnackBar(duration: number, message?: any): void {
+    this.snackBar.open(message, 'OK', { duration });
+  }
 }

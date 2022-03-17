@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -31,6 +31,8 @@ export class EditableComponent implements OnInit, OnDestroy {
   currentFilterKey: string | any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | any;
+  @ViewChild('dialogTemplate')
+  dialogTemplate!: TemplateRef<any>;
 
   constructor(
     private userService: UserService,
@@ -75,7 +77,8 @@ export class EditableComponent implements OnInit, OnDestroy {
 
     const dialogData = {
       title: 'Biztos vagy benne?',
-      content: 'Az adatok véglegesen törölve lesznek!'
+      content: 'Az adatok véglegesen törölve lesznek!',
+      template: this.dialogTemplate
     };
 
     this.messageService.openDialog(dialogData).pipe(
@@ -88,7 +91,7 @@ export class EditableComponent implements OnInit, OnDestroy {
           return;
         }
         this.userService.delete(user.id).toPromise().then(
-          response => console.log(response),
+          response => this.messageService.openSnackBar(3000, 'User törölve!'),
           err => console.error(err)
         );
       }
