@@ -2,6 +2,44 @@
     <mat-card-title>Edit User</mat-card-title>
     <!-- csak akkor jelenik meg, ha a user$ async pipe-al megérkezett -->
     <mat-card-content *ngIf="(user$ | async) as user">
-        <form #editorForm="ngForm" (ngSubmit)="onSubmit(editorForm, user)" class="example-form"></form>
+        <form #editorForm="ngForm" (ngSubmit)="onSubmit(editorForm, user)" class="example-form" fxLayout="column">
+            <mat-form-field class="example-fill-width">
+                <input type="text" name="first_name" matInput placeholder="First Name" [(ngModel)]="user.first_name">
+            </mat-form-field>
+            <!-- ha a name nem egyezik a user kulcsal, akkor vagy nem lesz találat, vagy új adat jön létre -->
+            <mat-form-field class="example-fill-width">
+                <input type="text" name="last_name" matInput placeholder="Last Name" [(ngModel)]="user.last_name">
+            </mat-form-field>
+            
+            <mat-form-field class="example-fill-width">
+                <input type="email" name="email" email matInput placeholder="E-mail" [(ngModel)]="user.email">
+            </mat-form-field>
+
+            <mat-form-field class="example-fill-width">
+                <input type="text" name="address" matInput placeholder="Address" [(ngModel)]="user.address">
+            </mat-form-field>
+            
+            <mat-form-field class="example-fill-width">
+                <input type="text" name="gender" matInput [matAutocomplete]="auto" placeholder="Gender" [(ngModel)]="user.gender">
+                
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let gender of genders" [value]="gender">
+                        <span>{{ gender }}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field class="example-fill-width">
+                <mat-label>Onboarding date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="user.onBoarding" name="onBoarding">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-slider class="example-fill-width" thumbLabel name="salary" [(ngModel)]="user.salary" min="35000" maxLength="500000" step="1000" tickInterval="1000" [displayWith]="formatLabel"></mat-slider>
+            <mat-slide-toggle class="example-fill-width mb-2" name="active" [(ngModel)]="user.active">Active</mat-slide-toggle>
+                
+            <button mat-raised-button color="primary">Save</button>
+        </form>
     </mat-card-content>
 </mat-card>
