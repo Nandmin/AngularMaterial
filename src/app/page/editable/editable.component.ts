@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { User } from 'src/app/model/user';
 import { UserService } from 'src/app/service/user.service';
+import { MessageService } from '../../service/message.service';
 
 @Component({
   selector: 'app-editable',
@@ -33,7 +34,8 @@ export class EditableComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
     )  {}
 
   applyFilter(event: Event): void {
@@ -70,10 +72,26 @@ export class EditableComponent implements OnInit, OnDestroy {
   }
 
   onDelete(user: User): void {
-    this.userService.delete(user.id).toPromise().then(
-      response => console.log(response),
-      err => console.error(err)
+
+    const dialogData = {
+      title: 'Biztos vagy benne?',
+      content: 'Az adatok véglegesen törölve lesznek!'
+    };
+
+    this.messageService.openDialog(dialogData).pipe(
+      // csak 1szer fog adatot adni
+      take(1)
+    ).subscribe(
+      result => {
+        if (!result) {
+          // akkor nincs result, amikor a dialogbox-ban a cancelre kattintanak, mert nincs visszajövő adat
+          return;
+        }
+        this.userService.delete(user.id).toPromise().then(
+          response => console.log(response),
+          err => console.error(err)
+        );
+      }
     );
   }
-
 }

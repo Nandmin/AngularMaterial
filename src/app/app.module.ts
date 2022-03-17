@@ -35,6 +35,7 @@ import { FilterComponent } from './page/filter/filter.component';
 import { EditableComponent } from './page/editable/editable.component';
 import { UserEditorComponent } from './page/user-editor/user-editor.component';
 import { HomeComponent } from './page/home/home.component';
+import { DialogComponent } from './common/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { HomeComponent } from './page/home/home.component';
     FilterComponent,
     EditableComponent,
     UserEditorComponent,
-    HomeComponent
+    HomeComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
