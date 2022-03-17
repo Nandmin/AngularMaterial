@@ -1,1 +1,7 @@
-<p>user-editor works!</p>
+<mat-card class="mat-elevation-z4">
+    <mat-card-title>Edit User</mat-card-title>
+    <!-- csak akkor jelenik meg, ha a user$ async pipe-al megérkezett -->
+    <mat-card-content *ngIf="(user$ | async) as user">
+        <form #editorForm="ngForm" (ngSubmit)="onSubmit(editorForm, user)" class="example-form"></form>
+    </mat-card-content>
+</mat-card>
